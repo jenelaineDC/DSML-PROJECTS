@@ -27,8 +27,7 @@ By combining probabilistic models (BG/NBD, Gamma‑Gamma) with machine learning 
 ---
 ### PROJECT SUMMARY
 
-**Behavioural Highlight by Cluster**
-
+![segm_overview](https://github.com/jenelaineDC/DSML-PROJECTS/blob/main/Online%20Retail/files/segm_overview.png)
 | Cluster | Segment Name | Recency (weeks) | Frequency | Predicted Purchases | Value per Purchase (£) | Behavioral & Strategic Insights |
 |---------|--------------|-----------------|-----------|---------------------|------------------------|--------------------------------|
 | **0**   | **Mid-Value Customers** | 30.4 | 5.11 | 1.64 | 4.77 | Consistent buyers with stable engagement and moderate order values. **Prob. Alive ≈ 0.98**, **Predicted CLV ≈ £22.8**. High retention likelihood; best suited for **upselling and cross-selling** to increase wallet share. |
@@ -71,4 +70,4 @@ The goal was to transform this raw dataset into a structured analytical pipeline
 ![segm_table](https://github.com/jenelaineDC/DSML-PROJECTS/blob/main/Online%20Retail/files/segm_table.png)
 ![segm_radar](https://github.com/jenelaineDC/DSML-PROJECTS/blob/main/Online%20Retail/files/segm_radar.png)
 ![segm_pca](https://github.com/jenelaineDC/DSML-PROJECTS/blob/main/Online%20Retail/files/segm_pca.png)
-![](https://github.com/jenelaineDC/DSML-PROJECTS/blob/main/Online%20Retail/files/.png)
+![segm_monthly](https://github.com/jenelaineDC/DSML-PROJECTS/blob/main/Online%20Retail/files/segm_monthly.png)
