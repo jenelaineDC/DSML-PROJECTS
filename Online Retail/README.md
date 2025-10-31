@@ -1,8 +1,8 @@
 ### PROJECT BACKGROUND
-In today’s data-driven economy, small and mid-sized online retailers often face challenges leveraging customer and transaction data to make informed marketing and operational decisions. Understanding customer value, purchasing behavior, and product affinities is crucial for improving retention, driving growth, and optimizing marketing spend.
+In today’s competitive e‑commerce landscape, small and mid‑sized online retailers are under constant pressure to retain customers, increase revenue, and allocate marketing budgets efficiently. While these businesses generate large volumes of transactional data, they often lack the analytical frameworks to translate raw data into strategic insights.
 
 ### PROJECT GOAL
-The main goals of this project are to:
+This project addresses that gap by showing how customer analytics and predictive modeling can be leveraged to:
 1. **Estimate Customer Lifetime Value (CLV)**
 Model future customer monetary contribution using probabilistic and machine-learning approaches.
 2. **Model Customer Activity / Survival
@@ -11,23 +11,34 @@ Estimate** the probability that a customer is still “alive” (active) using B
 Use clustering to identify actionable customer groups for targeted marketing and retention.
 4. **Build a Product Recommendation System**
 Develop a hybrid recommender (association mining + content similarity) to support cross-sell and personalization.
-5. **Produce Actionable Business Insights**
-Translate model outputs into marketing, CRM, and merchandising recommendations.
+
+By combining probabilistic models (BG/NBD, Gamma‑Gamma) with machine learning (XGBoost) and hybrid recommendation systems (FP‑Growth + TF‑IDF), the project demonstrates how data science can directly support business growth, customer loyalty, and marketing ROI.
 
 ### SCOPE AND LIMITATION
 **The project will:**
 - Use the Online Retail II dataset (2009–2011), focusing only on the variables provided.
-- Analytical methods include: BG/NBD (frequency + probability-alive), Gamma-Gamma (monetary modeling), XGBoost (hybrid CLV), K-Means + PCA (segmentation & visualization), and FP-Growth + TF-IDF (hybrid recommendations).
-
+- Methods include: BG/NBD (frequency + probability-alive), Gamma-Gamma (monetary modeling), XGBoost (hybrid CLV), K-Means + PCA (segmentation & visualization), and FP-Growth + TF-IDF (hybrid recommendations).
 
 **The project will not:**
 - Incorporate external data sources such as competitor activity or macroeconomic conditions.
 - Generalize findings beyond this specific retailer, as results are limited to a single dataset.
 - Deploy models into production; instead, it will focus on generating insights and analytical frameworks for potential business use.
 - Capture all product categories or customer behaviors, since the dataset is time-bound and may not fully represent long-term patterns.
+---
+### PROJECT SUMMARY
+
+**Behavioural Highlight by Cluster**
+
+| Cluster | Segment Name | Recency (weeks) | Frequency | Predicted Purchases | Value per Purchase (£) | Behavioral & Strategic Insights |
+|---------|--------------|-----------------|-----------|---------------------|------------------------|--------------------------------|
+| **0**   | **Mid-Value Customers** | 30.4 | 5.11 | 1.64 | 4.77 | Consistent buyers with stable engagement and moderate order values. **Prob. Alive ≈ 0.98**, **Predicted CLV ≈ £22.8**. High retention likelihood; best suited for **upselling and cross-selling** to increase wallet share. |
+| **1**   | **Occasional Buyers** | 12.1 | 1.37 | 0.88 | 5.80 | Lower engagement and shorter tenure. **Prob. Alive ≈ 0.78**, **Predicted CLV ≈ £13.2**. Smaller revenue contribution, with recency ratio ≈ 0.51 indicating declining activity. Target with **reactivation campaigns and win-back offers**. |
+| **2**   | **VIP High-Value Customers** | 33.3 | 9.43 | 2.40 | 38.14 | Elite segment with very high CLV (**≈ £219**) and large order sizes. **Prob. Alive ≈ 0.97**. Loyal and profitable, requiring **retention focus, exclusivity programs, and advocacy initiatives**. |
+
+**Survival Analysis**
 
 ---
-### DATASET STRUCTURE AND ENTITY RELATIONSHIP OVERVOEW 
+### DATASET STRUCTURE AND ENTITY RELATIONSHIP OVERVIEW 
 
 This project is based on the **UCI Online Retail dataset**, which contains transactional data from a UK-based e-commerce retailer.  
 The goal was to transform this raw dataset into a structured analytical pipeline to perform **Customer Lifetime Value (CLV) modeling**, **Customer Segmentation**, and **Product Recommendation**.
