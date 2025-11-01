@@ -56,6 +56,28 @@ The goal was to transform this raw dataset into a structured analytical pipeline
 **Entity Relationship Diagram:**
 ![erd_light](https://github.com/jenelaineDC/DSML-PROJECTS/blob/main/Online%20Retail/files/erd_light.png)
 
+**Data Preprocessing Steps:**
+```
+flowchart TD
+    A[Raw Transaction Data] --> B{Data Cleaning}
+    B --> C[Drop Cancelled InvoiceNo (starts 'C'/'A')]
+    C --> D[Drop NA (Description, CustomerID)]
+    D --> E[Remove Quantity <= 0]
+    E --> F[Remove UnitPrice <= 0]
+    F --> G[Remove Duplicates]
+    G --> H[Remove StockCode == 'PADS']
+
+    H --> I{Feature Engineering}
+    I --> J[Calibration / Holdout Split → Compute Recency / Frequency / Tenure]
+    J --> K[Fit BG/NBD → Predict Expected Purchases]
+    K --> L[Fit Hybrid CLV Model -> Monetary Value]
+
+    L --> M{Outlier Handling}
+    M --> N[Standard Scaling]
+    N --> O[PCA (Dimensionality Reduction)]
+
+    O --> P[Final Modeling Dataset]
+```
 ---
 ### EXPLORATORY DATA ANALYSIS
 ![kpi_fig](https://github.com/jenelaineDC/DSML-PROJECTS/blob/main/Online%20Retail/files/kpi_fig.png)
@@ -68,6 +90,7 @@ The goal was to transform this raw dataset into a structured analytical pipeline
 ![cancelled_tree](https://github.com/jenelaineDC/DSML-PROJECTS/blob/main/Online%20Retail/files/cancelled_tree.png)
 ---
 ### CUSTOMER SEGMENTATION
+![kmeans_metrics](https://github.com/jenelaineDC/DSML-PROJECTS/blob/main/Online%20Retail/files/kmeans_metrics.png)
 ![segm_table](https://github.com/jenelaineDC/DSML-PROJECTS/blob/main/Online%20Retail/files/segm_table.png)
 ![segm_radar](https://github.com/jenelaineDC/DSML-PROJECTS/blob/main/Online%20Retail/files/segm_radar.png)
 ![segm_pca](https://github.com/jenelaineDC/DSML-PROJECTS/blob/main/Online%20Retail/files/segm_pca.png)
