@@ -29,17 +29,24 @@ The primary objective of this project is to analyze employee data to uncover pat
 ### PROJECT SUMMARY
 
 ---
-DATASET STRUCTURE AND ENTITY RELATIONSHIP DIAGRAM
+### DATASET STRUCTURE AND ENTITY RELATIONSHIP DIAGRAM
 
+---
+### EXPLORATORY DATA ANALYSIS
+![hr_kpi](https://github.com/jenelaineDC/DSML-PROJECTS/blob/main/HR%20Analytics/files/hr_kpi.png)
+![distribution_fig](https://github.com/jenelaineDC/DSML-PROJECTS/blob/main/HR%20Analytics/files/distribution_fig.png)
+![boxplot_fig](https://github.com/jenelaineDC/DSML-PROJECTS/blob/main/HR%20Analytics/files/boxplot_fig.png)
+![hr_dept_table](https://github.com/jenelaineDC/DSML-PROJECTS/blob/main/HR%20Analytics/files/hr_dept_table.png)
 ---
 ### SURVIVAL ANALYSIS
 
 ---
-### Kaplan-Meier Survival Curves
-
+#### Kaplan-Meier Survival Curves
+![kp_curve](https://github.com/jenelaineDC/DSML-PROJECTS/blob/main/HR%20Analytics/files/kpcurve_small.png)
+![kpcurve_attribute](https://github.com/jenelaineDC/DSML-PROJECTS/blob/main/HR%20Analytics/files/kpcurve_attribute.png)
 ---
-### Cox Proportional Hazard
-
+#### Cox Proportional Hazard
+![coxph](https://github.com/jenelaineDC/DSML-PROJECTS/blob/main/HR%20Analytics/files/coxph_small.png)
 ---
 ### EMPLOYEE TURNOVER PREDICTION
 
