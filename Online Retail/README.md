@@ -1,3 +1,4 @@
+---
 ### PROJECT BACKGROUND
 In today’s competitive e‑commerce landscape, small and mid‑sized online retailers are under constant pressure to retain customers, increase revenue, and allocate marketing budgets efficiently. While these businesses generate large volumes of transactional data, they often lack the analytical frameworks to translate raw data into strategic insights.
 
