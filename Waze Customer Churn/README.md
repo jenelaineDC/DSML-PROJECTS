@@ -59,9 +59,79 @@ This dataset is supplied as part of the Google Advanced Data Analytics Professio
 
 ---
 ### EXPLORATORY DATA ANALYSIS
+![features_dist](https://github.com/jenelaineDC/DSML-PROJECTS/blob/main/Waze%20Customer%20Churn/files/feature_dist.png)
+
+##### Feature Engineering
+![engfeature_dist](https://github.com/jenelaineDC/DSML-PROJECTS/blob/main/Waze%20Customer%20Churn/files/engfeature_dist.png)
+To improve the model’s ability to detect churn, I engineered several new features. Each feature is designed not only to add predictive value but also to provide business-relevant insights into user behavior:
+
+- **`km_per_driving_day`**: Represents the average kilometers driven on each active driving day in the last month, giving a normalized view of driving intensity and helping differentiate light users from heavy or more dependent drivers.  
+
+- **`percent_sessions_in_last_month`**: Measures the share of a user’s total sessions that occurred in their last active month, capturing recency of engagement.  
+
+- **`professional_driver`**: A binary flag identifying users with at least 60 drives and 15 active driving days in the last month, allowing the model to distinguish highly active or professional drivers from casual ones.  
+
+- **`total_sessions_per_day`**: The average number of sessions per day since onboarding, reflecting overall long-term engagement relative to account age.  
+
+- **`km_per_hour`**: The average kilometers driven per hour in the last month.
+
+- **`km_per_drive`**: The average distance per trip in the last month, highlighting driving habits at the trip level and differentiating short, casual usage from longer, more dependent use cases.  
+
+- **`percent_of_sessions_to_favorite`**: The percentage of sessions used to navigate to saved favorite places, serving as a proxy for loyalty and habitual app usage.  
+
+##### Outlier Detection
+![features_box](https://github.com/jenelaineDC/DSML-PROJECTS/blob/main/Waze%20Customer%20Churn/files/feature_box.png)
+![engfeatures_box](https://github.com/jenelaineDC/DSML-PROJECTS/blob/main/Waze%20Customer%20Churn/files/engfeature_box.png)
+
+As part of the exploratory analysis, I examined the distributions of the numerical variables using histograms and boxplots. Overall, most of the features showed varying degrees of right skewness, with clear outliers that highlight differences in user behavior patterns.
+
+- **`sessions`**: This variable, which captures how often a user opened the app in the last month, shows a right-skewed distribution. Half of the users had 56 or fewer sessions, while a small group of heavy users logged over 700 sessions, marking them as clear outliers.
+
+- **`drives`**: Similar to `sessions`, the number of drives (≥1 km) is also right-skewed and approximately log-normal. The median is 48, but some drivers recorded 400+ drives in a single month, suggesting a subset of highly active or possibly professional users.
+
+- **`total_sessions`**: The total number of sessions since onboarding is also skewed to the right, with a median of ~160 sessions. Compared to the monthly median of ~48 sessions, this indicates that a significant portion of a user’s total activity often occurs in just the most recent month, which is worth deeper analysis.
+
+- **`n_days_after_onboarding`**: This variable, representing user tenure, is uniformly distributed across the range of 0 to ~3,500 days (~9.5 years). Unlike usage features, tenure does not show clustering or heavy skewness.
+
+- **`driven_km_drives`**: The total kilometers driven in the last month shows strong right skew. Half of users drove under ~3,495 km, while the most extreme case exceeded 20,000 km, which is over half the circumference of the Earth. These extreme long-distance drivers clearly stand out as outliers.
+
+- **`duration_minutes_drives`**: Total minutes driven also follows a heavy right-skew. The median is ~1,478 minutes (~25 hours), but some users drove 15,000+ minutes (>250 hours) in one month, again suggesting a small group of outlier users with unusually high activity.
+
+- **`activity_days`**: The number of days a user opened the app in the last month has a median of 16 days and a nearly uniform distribution across the range. Interestingly, ~250 users did not open the app at all, while another ~250 opened it every single day. Unlike `sessions`, which is more skewed, this variable shows a flatter distribution and warrants comparison.
+
+- **`driving_days`**: The number of days a user drove is also fairly uniform but drops off in the higher counts compared to `activity_days`. Notably, almost twice as many users (~1,000) did not drive at all compared to those who didn’t open the app (~550). This discrepancy between app activity and actual driving behavior should be flagged for deeper investigation.
+
+From this outlier analysis, it is clear that several variables (e.g., `sessions`, `drives`, `driven_km_drives`, `duration_minutes_drives`) contain extreme values that could influence model training. The right-skewed distributions suggest that some users are highly active or professional drivers, while others are casual or inactive. These patterns will inform feature transformations, potential log-scaling, or outlier treatment to ensure the churn prediction model is robust and not unduly influenced by extreme user behavior. Additionally, discrepancies between `activity_days` and `driving_days` highlight behavioral segments that may be important predictors of churn.
+
+#### Outlier Handling
+From the previous section, the boxplots indicated that many of these numerical variables contain clear outliers. Based on my analysis, these outliers do not appear to be data entry errors—they arise naturally from the right-skewed distributions of the variables.
+
+Depending on how the data will be used, it may be useful to handle these extreme values to reduce their impact on modeling. One approach is to **impute outlying values with more reasonable thresholds**, rather than removing them entirely. A common technique is to set a threshold based on a specific percentile of the distribution.
+
+A function that calculates the **95th percentile** for a given column and then replaces any value exceeding this percentile with the 95th percentile value itself will be used. This ensures that extreme values are capped while preserving the overall distribution structure.
+
+However, for a tree based model, it is not necessary to impute this outliers. So a different dataframe will be used for Logistic Regression model and Tree-based model.
+```
+def cap_outliers(df_input, columnname, percentile=0.95):
+    """
+    Caps values above a given percentile for a specified column in a DataFrame.
+
+    Parameters:
+    df_input (pd.DataFrame): The DataFrame to modify
+    columnname (str): The column to cap
+    percentile (float): The percentile threshold (default is 0.95)
+
+    Returns:
+    pd.DataFrame: DataFrame with capped column
+    """
+    p_val = round(df_input[columnname].quantile(percentile), 2)
+    df_input[columnname] = df_input[columnname].where(df_input[columnname] < p_val, p_val)
+    print(f"{columnname} capped at {int(percentile*100)}th percentile: {p_val}")
+    return df_input
+```
 
 ---
-### MACHINE LEARNING
+### CUSTOMER CHURN PREDICTION
 #### Evaluation Metric Selection
 Before moving into the modeling phase, it was important to establish how the model’s performance would be evaluated. This decision depends on both the distribution of the target variable and the business use case.
 
